@@ -1,0 +1,21 @@
+.mydivaccount{
+    width: 50%;
+    
+   
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    border: 2px solid rgb(248, 248, 248);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 8px 15px  rgb(248, 248, 248);
+   
+}
+@media(max-width:750px){
+    .mydivaccount{
+        width: 80%;
+        
+       
+       
+    }
+}

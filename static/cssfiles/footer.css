@@ -1,0 +1,86 @@
+.footer{
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(to right,#16cd8a, #1bcccc);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.fpart1{
+width: 40%;
+height: 400px;
+color: white;
+/* border: 2px solid black; */
+padding-left: 100px;
+padding-top: 50px;
+}
+.fpart1 input{
+    border: 1px solid white;
+    border-radius: 30px;
+    color: white;
+    background-color: transparent;
+    width: 50%;
+    height: 50px;
+    padding: 15px;
+}
+.fpart1 button{
+    border: 1px solid white;
+    border-radius: 30px;
+    background-color: white; 
+    width: 20%;
+    height: 40px; 
+    font-size: 12px;
+    font-weight: bold;
+    /* background-image: linear-gradient(to right,#16cd8a, #1bcccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; */
+}
+.fpart2{
+  width: 20%;
+  height: 400px;
+  color: white;
+  /* border: 2px solid black;   */
+}
+.fpart3{
+   width: 20%;
+   height: 400px;
+   color: white;
+   /* border: 2px solid black;  */
+}
+.fpart4{
+   width: 20%;
+   height: 400px;
+   color: white;
+   /* border: 2px solid black;  */
+}
+.socialicons{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.i1,.i2,.i3,.i4,.i5{
+    width: 10%;
+    font-size: 20px;
+}
+.footerul{
+    list-style: none;
+    font-size: 14px;
+}
+.footerul li{
+    padding: 5px;
+}
+.footerp{
+    font-weight: bold;
+    padding-left: 35px;
+    padding-top: 30px;
+    font-size: 20px;
+}
+.footernext{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    color: black;
+    padding: 10px;
+}

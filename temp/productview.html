@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    {% load static %}
+    {% load cart %}
+    <!-- css of owl -->
+    <link rel="stylesheet" href="{% static 'cssfiles/mainpage.css' %}">
+    <link rel="stylesheet" href="{% static 'cssfiles/productview.css' %}">
+    <link rel="stylesheet" href="{% static 'cssfiles/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'cssfiles/owl.theme.green.css' %}">
+    <!-- js of owl -->
+    <!-- js -->
+    <script src="{% static 'jsfiles/jquery.min.js' %}"></script>
+    <script src="{% static 'jsfiles/owl.carousel.min.js' %}"></script>
+    <!--  -->
+    <script src="../static/jsfiles/zoomsl.js"></script>
+    <script src="../static/jsfiles/zoomsl.min.js"></script>
+    <!-- fontawsome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+
+
+        <script>
+            // Dropdown hover toggle
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+              dropdown.addEventListener('mouseenter', function() {
+                dropdown.classList.add('show');
+                dropdown.querySelector('.dropdown-menu').classList.add('show');
+              });
+              dropdown.addEventListener('mouseleave', function() {
+                dropdown.classList.remove('show');
+                dropdown.querySelector('.dropdown-menu').classList.remove('show');
+              });
+            });
+          </script>
+</head>
+
+<body>
+    
+   
+    <section class="mmmclass" style="background-color: black;position: fixed;width: 100%;z-index: 999999999999;width: 100%;">
+        <section class="yyyclass" style="position: fixed;width: 100%;">
+          <div class="row" style="background-color: black;">
+           
+            <div class="col-12" style="background-color: black;">
+             <ul class="" style="float: right;padding: 7px;margin-right: 50px;">
+              {% if user.is_authenticated %}
+            <li style="list-style: none;"> <span><a href="mycart"><img style="width: 50px;height: 30px;" src="../static/images/cart.png" alt=""></a></span>    <span> <a href="{% url 'myorders' %}" style="text-decoration: none;color: white;" ><img src="../static/images/login.webp" alt="" style="width: 30px;height: 30px;padding: 4px;"></span><span>Profile</span></a> </li>
+            {% else %}
+             <li style="list-style: none;"> <span><a href="mycart"><img style="width: 50px;height: 30px;"  src="../static/images/cart.png" alt=""></a></span>  <span><a href="" style="text-decoration: none;color: white;" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img src="../static/images/login.webp" alt="" style="width: 30px;height: 30px;padding: 4px;"></span><span>Login</span></a></li>
+            {% endif %}
+             </ul>
+            </div>
+          </div>
+         
+        </section>
+      </section>
+    <!-- side whatspp -->
+    <div class="centerwalatwo" style="z-index: 9999999999;">
+        <a href="https://wa.me/918802828308"> <img src="{% static " images/whatsapp.png" %}" alt=""
+                class=" pulsewalatwo"></a>
+    </div>
+    <!-- enquiry pulse -->
+    <div class="centerwala">
+        <a href="tel:8802828308" class="pulsewala"><i class="fa fa-phone fa-2x" aria-hidden="true"
+                style="color: black;"></i> </a>
+    </div>
+    <br>
+    <!-- section -->
+
+    <!-- navbar -->
+    <section class="sectiontwo" style="position: fixed; background: rgb(25,42,147);
+    background: linear-gradient(90deg, rgba(25,42,147,1) 0%, rgba(25,42,147,1) 49%, rgba(10,146,227,1) 100%);width: 100%;z-index: 999999999999999999;margin-top: 13px;box-shadow: 1px 2px 5px black;">
+        <section class="container-fluid">
+          <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="" style="color: #fff;">Comeny name</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                  <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                      </li> -->
+                      {% for category in categories %}
+    
+                  <li class="nav-item dropdown" style="color: #fff;">
+                    <a style="color: #fff;" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      {{ category.name }}
+    
+                    </a>
+                    <ul class="dropdown-menu">
+                      {% for subcategory in category.subcategories.all %}
+                      <li style="color: #fff;"><a style="color: #292828;" class="dropdown-item" href="{% url 'productsearch' %}?qry={{subcategory.id}}">{{ subcategory.name }}</a></li>
+                     
+                      <li>
+                       
+    
+                        <hr class="dropdown-divider">
+                      </li>
+                     
+                      {% endfor %}
+                    </ul>
+                    {% endfor %}
+    
+                  </li>
+                  <!-- <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                      </li> -->
+                </ul>
+                <form action="{% url 'search' %}" class="d-flex" role="search">
+                  <input class="form-control me-2" name="qry" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit" style="color: #fff;">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+        </section>
+      </section>
+    <!-- section 2 -->
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <section class="sectionproductview container-fluid">
+        <div class="row">
+            <div class="col-md-5 mleft">
+                <div class="myshowcase">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"> <img
+                                    src="{{myproducts.prod_img.url}}" class="d-block w-100" alt="..."></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"><img
+                                    src="{{myproducts.prod_img2.url}}" class="d-block w-100" alt="..."></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"><img
+                                    src="{{myproducts.prod_img3.url}}" class="d-block w-100" alt="..."></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{myproducts.prod_img.url}}" id="myimagedata" class="d-block" alt="..."
+                                    style="width: 250px;">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{myproducts.prod_img2.url}}" id="myimagedata2" class="d-block" alt="..."
+                                    style="width: 250px;">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{myproducts.prod_img3.url}}" id="myimagedata3" class="d-block" alt="..."
+                                    style="width: 250px;">
+                            </div>
+                        </div>
+
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span style="background-color: #232f3e;padding: 5px;border-radius: 50%;margin: 5px;"
+                                class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only" style="color: #232f3e;">Previous</span>
+                        </a>
+                        <a style="padding: 5px;" class="carousel-control-next" href="#carouselExampleIndicators"
+                            role="button" data-slide="next">
+                            <span style="background-color: #232f3e;padding: 5px;border-radius: 50%;margin: 5px;"
+                                class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-7 mright px-5">
+
+                <!-- <h3 class="heading1">Product Id-{{myproducts.prod_id}}</h3> -->
+
+                <strong>{{myproducts.name}}</strong>
+                <hr>
+                <h3 class="heading2" style="color:#b6252f;"> <span style="color: green;">₹
+                        {{myproducts.prod_mrp}}</span> <strike>Rs{{myproducts.prod_mrp}}</strike></h3>
+                <h3 class="heading2" style="font-size: 20px;"><strong></strong></h3>
+
+                <!-- cart logic -->
+                {{myproducts.description | safe}}
+
+
+                <div class="" style=" width: 20%;border-radius: 5px;">
+                    {% if myproducts|is_in_cart:request.session.cart %}
+                    <a href="{% url 'mycart' %}" class="btn "
+                      style="display: block;background: rgb(25,42,147);
+                      background: linear-gradient(90deg, rgba(25,42,147,1) 0%, rgba(25,42,147,1) 49%, rgba(10,146,227,1) 100%); color:white;border-radius:0;  ">Go to
+                      Beg</a>
+                    {% else %}
+                    <form action="myaddtocart" method="POST">
+                      {% csrf_token %}
+                      <input hidden type="text" name="sendid" value="{{myproducts.id}}" id="">
+                      <input type="submit" class="btn "
+                        style=" border-radius: 5px; display: block;background: rgb(25,42,147);
+                        background: linear-gradient(90deg, rgba(25,42,147,1) 0%, rgba(25,42,147,1) 49%, rgba(10,146,227,1) 100%); color:white;width:100%;border-radius:0;"
+                        value="Add to cart">
+                    </form>
+                    {% endif %}
+                  </div>
+               
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                        <h6 style="color:#b6252f;"></h6>
+                        <h6 style="color:#b6252f;">Rs 50 charge below order of Rs 500</h6>
+                        <h3>Cash on Delivery available</h3>
+
+                        <h6>Our special offer - 20% off till 30 August</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Replacement and Exchange</h5>
+                        <ul>
+                            <li>With In 3 Days Replacement and exchange</li>
+                            <li>you can exchange only one time</li>
+                            <li>Product Should not be Broken</li>
+
+                        </ul>
+                    </div>
+                </div> -->
+                <br>
+                <div class="fixed-bottom" style=" box-shadow: 0px 0 15px black">
+
+                    <!-- <a href="" class="btn "
+                style="display: block;background-color:#232f3e; color:white;border-radius:0;  ">Go to
+                Beg</a> -->
+
+                    <!-- <form action="" method="POST">
+                {% csrf_token %}
+                <input hidden type="text" name="sendid" value="{{myproducts.id}}" id="">
+                <input type="submit" class="btn "
+                  style="display: block;background-color:#232f3e; color:white;width:100%;border-radius:0;"
+                  value="Add to cart">
+              </form> -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- footer -->
+    <br>
+    <br>
+
+    <section style="background: rgb(25,42,147);
+    background: linear-gradient(90deg, rgba(25,42,147,1) 0%, rgba(25,42,147,1) 49%, rgba(10,146,227,1) 100%);color: white;">
+        <section>
+            <section class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <br>
+                        <h2 style="padding-left: 20px;font-size: 30px;">Compeny logo</h2>
+                        <p style="padding-left: 30px;font-size: 20px;"><span><img class="myphonelogo1"
+                                    style="width: 15px;height: 15px;" src="{% static " images/loc.webp" %}" alt="..."
+                                    </span> <span>address</span></p>
+                        <p style="padding-left: 30px;font-size: 20px;"><span><img style="width: 15px;height: 15px;"
+                                    class="myphonelogo1" src="{% static " images/phone.png" %}" alt="..." </span>
+                                <span>Phone</span></p>
+                        <p style="padding-left: 30px;font-size: 20px;"><span><img style="width: 15px;height: 15px;"
+                                    class="myphonelogo1" src="{% static " images/whatsapp.png" %}" alt="..." </span>
+                                <span>WhatsApp</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <br>
+                        <h2>compeny</h2>
+                        <ul>
+                            <li>About Us</li>
+                            <li>Payment Policy</li>
+                            <li>Cancelation Policy</li>
+                            <li>Refund Policy</li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-4">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112012.77226162347!2d77.28960139726563!3d28.67770480000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cf1e1a0f296df%3A0x49f85c0c0d15982!2sLenovo%20Exclusive%20Store%20-%20Future%20It%20Zone%20-%20Ghaziabad!5e0!3m2!1sen!2sin!4v1712579565481!5m2!1sen!2sin"
+                            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+
+
+
+
+
+
+
+    <script>
+        $('.owl-carousel').owlCarousel({
+            center: true,
+            autoWidth: false,
+            items: 2,
+            loop: true,
+            autoplayHoverPause: true,
+            nav: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 1520,
+            smartSpeed: 1500,
+            animateIn: 'linear',
+            animateOut: 'linear',
+            responsive: {
+                0: {
+                    items: 2,
+                },
+                350: {
+                    items: 2,
+                },
+                600: {
+                    items: 4,
+                },
+                800: {
+                    items: 4,
+                },
+                1024: {
+                    items: 6,
+
+                },
+            }
+        });
+    </script>
+    <script src="../static/jsfiles/zoomsl.js"></script>
+    <script src="../static/jsfiles/zoomsl.min.js"></script>
+
+    <script>
+        $('#myimagedata').imagezoomsl({
+            zoomrange: [4, 8],
+            zoomstart: 8,
+            innerzoommagnifier: true,
+            classmagnifier: 'glass',
+            magnifiersize: [350, 350]
+        });
+        $('#myimagedata2').imagezoomsl({
+            zoomrange: [4, 8],
+            zoomstart: 8,
+            innerzoommagnifier: true,
+            classmagnifier: 'glass',
+            magnifiersize: [350, 350]
+        });
+        $('#myimagedata3').imagezoomsl({
+            zoomrange: [4, 8],
+            zoomstart: 8,
+            innerzoommagnifier: true,
+            classmagnifier: 'glass',
+            magnifiersize: [350, 350]
+        });
+    </script>
+    <!-- aaaaaaaaaaaaaaa -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+
+
+
+
+
+    <!-- js -->
+    <script src="../static/jsfiles/zoomsl.js"></script>
+    <script src="../static/jsfiles/zoomsl.min.js"></script>
+    <script src="{% static 'jsfiles/jquery.min.js' %}"></script>
+    <script src="{% static 'jsfiles/owl.carousel.min.js' %}"></script>
+    <!-- fontawsome -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src="../static/jsfiles/zoomsl.js"></script>
+    <script src="../static/jsfiles/zoomsl.min.js"></script>
+
+
+
+
+    <script>
+        // Dropdown hover toggle
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+          dropdown.addEventListener('mouseenter', function() {
+            dropdown.classList.add('show');
+            dropdown.querySelector('.dropdown-menu').classList.add('show');
+          });
+          dropdown.addEventListener('mouseleave', function() {
+            dropdown.classList.remove('show');
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
+          });
+        });
+      </script>
+</body>
+
+</html>
